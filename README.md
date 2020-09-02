@@ -125,7 +125,10 @@ To make it easy to run Flyway the way you want to, the following volumes are sup
 Mounting the conf, drivers, and sql directories to these volumes, we can create the flyway container and initiate the database setup and population.
 
 ```shell
-docker run --rm -v /Users/steve/github-ibm/flyway-db-migration/sql:/flyway/sql -v /Users/steve/github-ibm/flyway-db-migration/conf:/flyway/conf -v /Users/steve/github-ibm/flyway-db-migration/drivers:/flyway/drivers flyway/flyway migrate
+docker run --rm -v /Users/steve/github-ibm/flyway-db-migration/  
+sql:/flyway/sql -v /Users/steve/github-ibm/flyway-db-migration/  
+conf:/flyway/conf -v /Users/steve/github-ibm/flyway-db-migration/  
+drivers:/flyway/drivers flyway/flyway migrate
 ```
 
 <a id="6.0"></a>
@@ -162,7 +165,9 @@ In both case, Flyway native and in a container, Flyway Community Edition 6.5.5 b
 **Error message received**
 
 ```
-Unable to obtain connection from database (jdbc:db2://localhost:50000/apidemo) for user 'DB2INST1': [jcc][t4][2043][11550][4.22.29] Exception java.net.ConnectException: Error opening socket to server localhost/127.0.0.1 on port 50,000 with message: Connection refused (Connection refused). ERRORCODE=-4499, SQLSTATE=08001
+Unable to obtain connection from database (jdbc:db2://localhost:50000/apidemo) for user 'DB2INST1': 
+[jcc][t4][2043][11550][4.22.29] Exception java.net.ConnectException: Error opening socket to server localhost/127.0.0.1 on port 50,000 with message:  
+Connection refused (Connection refused). ERRORCODE=-4499, SQLSTATE=08001
 ```
 
 **Cause**
