@@ -135,11 +135,6 @@ docker run --rm -v /Users/steve/github-ibm/flyway-db-migration/sql:/flyway/sql -
 The migration running Flyway natively works when run either against Db2 running in IBM's Public Cloud or in a container.  When running Flyway from a container, the migration works when running against Db2 running in IBM's Public Cloud but fails with a communication error when running against a Db2 container instance.
 
 
-| Flyway    | Db2 IBM Public Cloud | Db2 Container Instance |  
-|-----------|%--------------------%|%----------------------%|  
-| Native    |       &#9989;        |        &#9989;         |  
-| Container |       &#9989;        |       &#10060;         |  
-
 <table>
     <thead>
         <tr>
@@ -151,13 +146,13 @@ The migration running Flyway natively works when run either against Db2 running 
     <tbody>
         <tr>
             <td>Native</td>
-            <td>&#9989;</td>
-            <td>&#9989;</td>
+            <td style="text-align:center">&#9989;</td>
+            <td style="text-align:center">&#9989;</td>
         </tr>
         <tr>
             <td>Container</td>
-            <td>&#9989;</td>
-            <td>&#10060;</td>
+            <td style="text-align:center">&#9989;</td>
+            <td style="text-align:center">&#10060;</td>
         </tr>
     </tbody>
 </table>
