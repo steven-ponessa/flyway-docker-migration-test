@@ -140,6 +140,27 @@ The migration running Flyway natively works when run either against Db2 running 
 | Native    |       &#9989;        |        &#9989;         |  
 | Container |       &#9989;        |       &#10060;         |  
 
+<table>
+    <thead>
+        <tr>
+            <th>Flyway</th>
+            <th>Db2 IBM Public Cloud</th>
+            <th>Db2 Container Instance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Native</td>
+            <td>&#9989;</td>
+            <td>&#9989;</td>
+        </tr>
+        <tr>
+            <td>Container</td>
+            <td>&#9989;</td>
+            <td>&#10060;</td>
+        </tr>
+    </tbody>
+</table>
 
 **Error message received**
 
