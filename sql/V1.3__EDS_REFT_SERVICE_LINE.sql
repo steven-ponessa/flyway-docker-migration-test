@@ -1,0 +1,38 @@
+-- Create EDS table
+CREATE TABLE EDS.REFT_SERVICE_LINE_DIM (
+      SERVICE_LINE_ID          INTEGER  NOT NULL GENERATED ALWAYS AS IDENTITY ( START WITH 1 INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 NO CYCLE CACHE 20 NO ORDER )
+  ,   SERVICE_LINE_CD          CHAR    (8)
+  ,   SERVICE_LINE_NM          VARCHAR (255)
+  ,   SERVICE_LINE_DESC        VARCHAR (255)
+  ,   STL_LVL17_CD             CHAR    (15)
+  ,   DCC_CD                   CHAR    (8)
+  ,   GROWTH_PLATFORM_CD       CHAR    (8)
+  )
+  DATA CAPTURE NONE 
+  COMPRESS NO;
+
+--Alter table to add primary key for Surrogate Id
+ALTER TABLE EDS.REFT_SERVICE_LINE_DIM ADD CONSTRAINT REFT_SERVICE_LINE_DIM_PK PRIMARY KEY (SERVICE_LINE_ID);
+
+--Create UNIQUE INDEX based on the natural key
+CREATE UNIQUE INDEX EDS.REFT_SERVICE_LINE_DIM_UX1 
+    ON EDS.REFT_SERVICE_LINE_DIM (
+      SERVICE_LINE_CD  ASC
+    )
+    MINPCTUSED 0
+    DISALLOW REVERSE SCANS
+    PAGE SPLIT SYMMETRIC
+    COLLECT SAMPLED DETAILED STATISTICS
+    COMPRESS NO;
+
+--Add comments to the table
+COMMENT ON TABLE EDS.REFT_SERVICE_LINE_DIM IS 'A GBS Service Line is the second level of the GBS Go To Market Structure, and level 17, Offering Market, within the Unified Taxonomy. An Offering Market is an established industry market that IBMs customer base would logically know.';
+
+--Add comments to the columns
+COMMENT ON COLUMN EDS.REFT_SERVICE_LINE_DIM.SERVICE_LINE_ID IS 'Surrogate key for EDS.REFT_SERVICE_LINE_DIM.';
+COMMENT ON COLUMN EDS.REFT_SERVICE_LINE_DIM.SERVICE_LINE_CD IS 'Service Line code.  This is level 17 within the Unified Taxonomy.';
+COMMENT ON COLUMN EDS.REFT_SERVICE_LINE_DIM.SERVICE_LINE_NM IS 'Service Line name (short description)';
+COMMENT ON COLUMN EDS.REFT_SERVICE_LINE_DIM.SERVICE_LINE_DESC IS 'Service Line long description';
+COMMENT ON COLUMN EDS.REFT_SERVICE_LINE_DIM.STL_LVL17_CD IS 'Support Level Taxonomy Level 17 code';
+COMMENT ON COLUMN EDS.REFT_SERVICE_LINE_DIM.DCC_CD IS 'Department Category Code';
+COMMENT ON COLUMN EDS.REFT_SERVICE_LINE_DIM.GROWTH_PLATFORM_CD IS 'Growth Platform code. Foreign Key';

@@ -1,0 +1,36 @@
+-- Create EDS table
+CREATE TABLE EDS.REFT_GROWTH_PLATFORM_DIM (
+      GROWTH_PLATFORM_ID       INTEGER  NOT NULL GENERATED ALWAYS AS IDENTITY ( START WITH 1 INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 NO CYCLE CACHE 20 NO ORDER )
+  ,   GROWTH_PLATFORM_CD       CHAR    (8)
+  ,   GROWTH_PLATFORM_NM       VARCHAR (255)
+  ,   GROWTH_PLATFORM_DESC     VARCHAR (255)
+  ,   STL_LVL15_CD             CHAR    (15)
+  ,   BRAND_CD                 CHAR    (8)
+  )
+  DATA CAPTURE NONE 
+  COMPRESS NO;
+
+--Alter table to add primary key for Surrogate Id
+ALTER TABLE EDS.REFT_GROWTH_PLATFORM_DIM ADD CONSTRAINT REFT_GROWTH_PLATFORM_DIM_PK PRIMARY KEY (GROWTH_PLATFORM_ID);
+
+--Create UNIQUE INDEX based on the natural key
+CREATE UNIQUE INDEX EDS.REFT_GROWTH_PLATFORM_DIM_UX1 
+    ON EDS.REFT_GROWTH_PLATFORM_DIM (
+      GROWTH_PLATFORM_CD  ASC
+    )
+    MINPCTUSED 0
+    DISALLOW REVERSE SCANS
+    PAGE SPLIT SYMMETRIC
+    COLLECT SAMPLED DETAILED STATISTICS
+    COMPRESS NO;
+
+--Add comments to the table
+COMMENT ON TABLE EDS.REFT_GROWTH_PLATFORM_DIM IS 'Growth Platforms are defined as families or groupings of products, services and businesses that extend capabilities into new domains and provide a framework for acquiring specific capabilities, assets and market knowledge.';
+
+--Add comments to the columns
+COMMENT ON COLUMN EDS.REFT_GROWTH_PLATFORM_DIM.GROWTH_PLATFORM_ID IS 'Surrogate key for EDS.REFT_GROWTH_PLATFORM_DIM.';
+COMMENT ON COLUMN EDS.REFT_GROWTH_PLATFORM_DIM.GROWTH_PLATFORM_CD IS 'Growth Platform code.  This is level 15 within the Unified Taxonomy.';
+COMMENT ON COLUMN EDS.REFT_GROWTH_PLATFORM_DIM.GROWTH_PLATFORM_NM IS 'Growth Platform name (short description)';
+COMMENT ON COLUMN EDS.REFT_GROWTH_PLATFORM_DIM.GROWTH_PLATFORM_DESC IS 'Growth Platform long description';
+COMMENT ON COLUMN EDS.REFT_GROWTH_PLATFORM_DIM.STL_LVL15_CD IS 'Support Level Taxonomy Level 15 code';
+COMMENT ON COLUMN EDS.REFT_GROWTH_PLATFORM_DIM.BRAND_CD IS 'Brand code. Foreign Key';
