@@ -117,10 +117,10 @@ The `--rm` causes Docker to automatically remove the container when it exits.
 Note, if you need to find Docker images available locally, you can run: `docker images` or `docker image ls`.
 
 To make it easy to run Flyway the way you want to, the following volumes are supported:
-•	`/flyway/conf`
-•	`/flyway/drivers`
-•	`/flyway/sql`
-•	`/flyway/jars`	The jar files for Flyway to use for Java migration (not used for SQL migration)
+- `/flyway/conf`
+- `/flyway/drivers`
+- `/flyway/sql`
+- `/flyway/jars`	The jar files for Flyway to use for Java migration (not used for SQL migration)
 
 Mounting the conf, drivers, and sql directories to these volumes, we can create the flyway container and initiate the database setup and population.
 
@@ -129,6 +129,11 @@ docker run --rm -v /Users/steve/github-ibm/flyway-db-migration/
 sql:/flyway/sql -v /Users/steve/github-ibm/flyway-db-migration/  
 conf:/flyway/conf -v /Users/steve/github-ibm/flyway-db-migration/  
 drivers:/flyway/drivers flyway/flyway migrate
+```
+
+or, without line breaks (for copy and paste)
+```shell
+docker run --rm -v /Users/steve/github-ibm/flyway-db-migration/sql:/flyway/sql -v /Users/steve/github-ibm/flyway-db-migration/conf:/flyway/conf -v /Users/steve/github-ibm/flyway-db-migration/drivers:/flyway/drivers flyway/flyway migrate
 ```
 
 <a id="6.0"></a>
