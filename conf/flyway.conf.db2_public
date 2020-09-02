@@ -1,0 +1,4 @@
+flyway.url=jdbc:db2://dashdb-txn-sbox-yp-dal09-10.services.dal.bluemix.net:50000/BLUDB
+flyway.user=RQG40283
+flyway.password=***************
+flyway.baselineOnMigrate=true

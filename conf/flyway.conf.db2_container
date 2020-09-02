@@ -1,0 +1,4 @@
+
+flyway.url=jdbc:db2://localhost:50000/apidemo
+flyway.user=DB2INST1
+flyway.password=mY%tEst%pAsSwOrD
