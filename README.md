@@ -1,5 +1,7 @@
 # Flyway Docker Migration Test
 
+See [https://github.com/flyway/flyway-docker/issues/34](https://github.com/flyway/flyway-docker/issues/34)
+
 **Table of Contents**
 
 1. [Overview](#1.0)
@@ -20,7 +22,7 @@
 This project is looking to test using Flyway to migrate/create and populate database schemas.  The test includes using both a local instance of Flyway and an instance running in a Docker container connecting to and populating:
 
 1. Db2 database instance in the IBM Public Cloud 
-1. Db2 database instance running in a Docker container on localhost.  This containerized instance of DB2 will be used create an enviromonment on the fly for testing, demonstrations, education, and development.
+1. Db2 database instance running in a Docker container on localhost.  This containerized instance of DB2 will be used to create an environment on the fly for testing, demonstrations, education, and development.
 
 To run this test, you'll need **Docker Desktop** installed and running, see: [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop).
 
@@ -56,7 +58,7 @@ Breaking down this command:
 
 After starting the image, execute `docker ps` to verify that it is running.  Also, look at the log for the container in Docker Desktop to verify that the initialization and `db2start` has completed.
 
-Once started, you can connect to the container instance of Db2 using any JDBC or ODBC enabled tool.  The connection information is below:
+Once started, you can connect to the container instance of Db2 using any JDBC or ODBC enabled tools.  The connection information is below:
 
 - JDBC URL: `jdbc:db2://localhost:50000/apidemo`
 - Host: `localhost`
@@ -73,7 +75,7 @@ Flywaydb, by default, allows for a simple directory structure to be set up to ru
 
 - `conf` – Directory containing the configuration file, flyway.conf
 - `drivers` – Directory containing the JDBC driver for the target database
-- `sql` – Directory with the SQL files that define the database schema (DDL) and content (DML) you are looking to migrate (build and load).
+- `sql` – Directory with the SQL files that define the database schema (DDL) and content (DML) we are looking to migrate (build and load).
 
 Looking at the content of each of these directories:
 
@@ -102,7 +104,7 @@ flyway.password=************
 flyway.baselineOnMigrate=true
 ```
 
-Note: For creation on Db2 on the IBM Public Cloud, since a database schema already exists, the `baselineOnMigrate` configuration flag needed to be set to true.
+Note: For the migration to the instance of Db2 on the IBM Public Cloud, since a database schema already existed, the `baselineOnMigrate` configuration flag needed to be set to true.
 
 <a id="3.2"></a>
 
@@ -123,7 +125,7 @@ Finally, in the SQL directory are the DDL and DML files used to create and popul
 <a id="4.0"></a>
 
 ## Running Flyway locally
-To run Flyway locally, you need to download and install the application ([https://flywaydb.org/download/](https://flywaydb.org/download/) and/or Flyway and the Java JRE are included in this repo).  Provided the user has Flyway installed, the user can run a Flyway migration against either Db2 running in a container or on the IBM Public Cloud by issuing the following command:
+To run Flyway locally, you need to download and install the application ([https://flywaydb.org/download/](https://flywaydb.org/download/) and/or Flyway and the Java JRE are included in this repo).  Provided the user has Flyway installed, the user can run a Flyway migration against either Db2 running in a container or on the IBM Public Cloud (pointing to the desired instance via the `flyway.conf` file) by issuing the following command:
 
 ```shell
 ./flyway clean migrate
@@ -142,9 +144,9 @@ docker run --rm flyway/flyway
 
 This will give you Flyway Command-line's usage instructions.
 
-Note that the `--rm` causes Docker to automatically remove the container when it exits.
+Note that the `--rm` option causes Docker to automatically remove the container when it exits.
 
-Note, if you need to find Docker images available locally, you can run: `docker images` or `docker image ls`.
+Note too that if you need to find Docker images available locally, you can run: `docker images` or `docker image ls`.
 
 To make it easy to run Flyway the way you want to, the following volumes are supported by the containerized version of Flyway:
 - `/flyway/conf`
@@ -152,7 +154,7 @@ To make it easy to run Flyway the way you want to, the following volumes are sup
 - `/flyway/sql`
 - `/flyway/jars`	The jar files for Flyway to use for Java migration (not used for SQL migration)
 
-Mounting the `conf`, `drivers`, and `sql` directories to these volumes, we can create the flyway container and initiate the database setup and population.
+Mounting the `conf`, `drivers`, and `sql` directories to these volumes, we can create the flyway container and initiate the database setup and population using the following command.
 
 ```shell
 docker run --rm -v /Users/steve/github-ibm/flyway-db-migration/  
@@ -213,12 +215,12 @@ A possible cause for this problem is that TCP/IP is not properly enabled on your
 
 **Resolving the Problem**
 
-Use the db2set DB2COMM command from the DB2 command window to start the TCP/IP connection:
+Use the `db2set` DB2COMM command from the DB2 command window to start the TCP/IP connection:
 ```shell
 db2set DB2COMM=protocol_names
 ```
 
-For example, to set the database manager to start connection managers for the TCP/IP communication protocols, enter the following commands
+For example, to set the database manager to start connection managers for the TCP/IP communication protocols, enter the following commands:
 
 ```shell
 db2set DB2COMM=tcpip
@@ -236,12 +238,15 @@ Switched to needed user:
 ```shell
 su - db2inst1
 ```
+
 Set the `DB2COMM`:
 
 ```shell
 db2set DB2COMM=TCPIP
 db2stop force
 db2start
+
+exit; exit
 ```
 
 Getting the same issue.
